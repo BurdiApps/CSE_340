@@ -1,13 +1,20 @@
+// bringing in the inventory model so we can get data from the database
 const invModel = require("../models/inventory-model")
+// creating empty object to store all our utility functions
 const Util = {}
 
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
+// this function builds the navigation bar dynamically from the database
 Util.getNav = async function () {
+  // getting all classifications from the db
   let data = await invModel.getClassifications()
+  // starting the unordered list html string
   let list = '<ul class="nav-list">'
+  // adding the home link first since its always there
   list += '<li><a href="/" title="Home page">Home</a></li>'
+  // looping thru each classification and adding a link for it
   data.rows.forEach((row) => {
     list += "<li>"
     list +=
@@ -21,16 +28,19 @@ Util.getNav = async function () {
     list += "</li>"
   })
   list += "</ul>"
+  // returning the finished html string back to whoever called this function
   return list
 }
 
 /* **************************************
  * Build the classification view HTML
  * ************************************ */
+// this takes the array of vehicles and builds a html grid to display them
 Util.buildClassificationGrid = async function (data) {
   let grid
   if (data.length > 0) {
     grid = '<ul id="inv-display">'
+    // looping thru each vehicle and creating a list item with image, name and price
     data.forEach((vehicle) => {
       grid += "<li>"
       grid +=
@@ -63,6 +73,7 @@ Util.buildClassificationGrid = async function (data) {
         vehicle.inv_model +
         "</a>"
       grid += "</h2>"
+      // formatting the price with commas and dollar sign using Intl.NumberFormat
       grid +=
         "<span>$" +
         new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
@@ -72,6 +83,7 @@ Util.buildClassificationGrid = async function (data) {
     })
     grid += "</ul>"
   } else {
+    // if there's no vehicles show a message instead
     grid =
       '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
@@ -81,11 +93,15 @@ Util.buildClassificationGrid = async function (data) {
 /* **************************************
  * Build the vehicle detail view HTML
  * ************************************ */
+// this builds the html for a single vehicle detail page
+// shows the full size image, price, description, color and miles
 Util.buildVehicleDetail = async function (data) {
   let detail
   if (data) {
+    // creating a div with image on one side and info on the other
     detail = '<div class="vehicle-detail">'
     detail += '<div class="detail-image">'
+    // using the full size image not the thumbnail
     detail +=
       '<img src="' +
       data.inv_image +
@@ -106,6 +122,7 @@ Util.buildVehicleDetail = async function (data) {
       " " +
       data.inv_model +
       " Details</h2>"
+    // formatting price with dollar sign and commas
     detail +=
       '<p class="detail-price"><strong>Price: </strong>$' +
       new Intl.NumberFormat("en-US").format(data.inv_price) +
@@ -118,6 +135,7 @@ Util.buildVehicleDetail = async function (data) {
       '<p class="detail-color"><strong>Color: </strong>' +
       data.inv_color +
       "</p>"
+    // formatting miles with commas too
     detail +=
       '<p class="detail-miles"><strong>Miles: </strong>' +
       new Intl.NumberFormat("en-US").format(data.inv_miles) +
@@ -125,6 +143,7 @@ Util.buildVehicleDetail = async function (data) {
     detail += "</div>"
     detail += "</div>"
   } else {
+    // if no vehicle was found show a message
     detail =
       '<p class="notice">Sorry, no matching vehicle could be found.</p>'
   }
@@ -136,6 +155,9 @@ Util.buildVehicleDetail = async function (data) {
  * Wrap other function in this for
  * General Error Handling
  **************************************** */
+// this is a higher order function that wraps other functions in a try-catch basically
+// if the function works fine it resolves the promise, if it fails it catches the error
+// and passes it to the express error handler using next
 Util.handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next)
 

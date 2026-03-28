@@ -1,4 +1,6 @@
+// bringing in Pool from pg package so we can connect to the database
 const { Pool } = require("pg")
+// need dotenv so we can use the .env file variables
 require("dotenv").config()
 /* ***************
  * Connection Pool
@@ -7,16 +9,18 @@ require("dotenv").config()
  * If - else will make determination which to use
  * *************** */
 let pool
+// checking if were in development mode or production
 if (process.env.NODE_ENV == "development") {
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
+    // ssl is needed when connecting to the remote db from our local machine
     ssl: {
       rejectUnauthorized: false,
     },
   })
 
   // Added for troubleshooting queries
-  // during development
+  // during development - this logs queries to the terminal so we can see them
   module.exports = {
     async query(text, params) {
       try {
@@ -30,6 +34,7 @@ if (process.env.NODE_ENV == "development") {
     },
   }
 } else {
+  // production mode - no ssl needed because the app and db are on same server
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
   })
