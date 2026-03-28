@@ -27,13 +27,17 @@ CREATE TABLE account (
 
 -- Create inventory table
 CREATE TABLE inventory (
-    inventory_id SERIAL PRIMARY KEY,
+    inv_id SERIAL PRIMARY KEY,
     inv_make VARCHAR(50) NOT NULL,
     inv_model VARCHAR(50) NOT NULL,
+    inv_year INTEGER NOT NULL,
     inv_description TEXT,
-    classification_id INTEGER REFERENCES classification(classification_id),
-    inv_image VARCHAR(200),
-    inv_thumbnail VARCHAR(200)
+    inv_image VARCHAR(200) NOT NULL,
+    inv_thumbnail VARCHAR(200) NOT NULL,
+    inv_price NUMERIC NOT NULL,
+    inv_miles INTEGER NOT NULL,
+    inv_color VARCHAR(50) NOT NULL,
+    classification_id INTEGER NOT NULL REFERENCES classification(classification_id)
 );
 
 -- Insert values into classification
