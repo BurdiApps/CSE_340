@@ -15,8 +15,6 @@ const pool = require('./database/')
 const bodyParser = require("body-parser")
 // bringing in inventory routes so anything with /inv goes thru here
 const inventoryRoute = require("./routes/inventoryRoute")
-// account routes for login and registration
-const accountRoute = require("./routes/accountRoute")
 // base controller handles the home page
 const baseController = require("./controllers/baseController")
 // utilities has the nav builder, grid builder, and error handler
@@ -66,8 +64,8 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes - any route starting with /inv gets sent to the inventory router
 app.use("/inv", inventoryRoute)
 
-// Account routes - any route starting with /account gets sent to the account router
-app.use("/account", accountRoute)
+// Account routes
+app.use("/account", require("./routes/accountRoute"))
 
 // File Not Found Route - must be last route in list
 // if no other route matches it sends a 404 error to the error handler

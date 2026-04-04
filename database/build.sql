@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS account;
 DROP TYPE IF EXISTS account_type_enum;
 
 -- Create account_type enum
-CREATE TYPE account_type_enum AS ENUM ('User', 'Admin');
+CREATE TYPE account_type_enum AS ENUM ('Client', 'Employee', 'Admin');
 
 -- Create classification table
 CREATE TABLE classification (
@@ -18,11 +18,11 @@ CREATE TABLE classification (
 -- Create account table
 CREATE TABLE account (
     account_id SERIAL PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
+    account_firstname VARCHAR(50) NOT NULL,
+    account_lastname VARCHAR(50) NOT NULL,
     account_email VARCHAR(100) UNIQUE NOT NULL,
     account_password VARCHAR(100) NOT NULL,
-    account_type account_type_enum DEFAULT 'User'
+    account_type account_type_enum DEFAULT 'Client'
 );
 
 -- Create inventory table
@@ -47,13 +47,13 @@ INSERT INTO classification (classification_name) VALUES
 ('Sport');
 
 -- Insert some inventory items
-INSERT INTO inventory (inv_make, inv_model, inv_description, classification_id, inv_image, inv_thumbnail) VALUES
-('GM', 'Hummer', 'This SUV is known for small interiors and off-road power.', 3, '/images/hummer.jpg', '/images/hummer-thumb.jpg'),
-('Ford', 'Mustang', 'The Mustang is a classic sport coupe with great performance.', 3, '/images/mustang.jpg', '/images/mustang-thumb.jpg'),
-('Toyota', 'Corolla', 'Economical and reliable sedan.', 1, '/images/corolla.jpg', '/images/corolla-thumb.jpg');
+INSERT INTO inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) VALUES
+('GM', 'Hummer', 2024, 'This SUV is known for small interiors and off-road power.', '/images/hummer.jpg', '/images/hummer-thumb.jpg', 58000, 5000, 'Black', 3),
+('Ford', 'Mustang', 2023, 'The Mustang is a classic sport coupe with great performance.', '/images/mustang.jpg', '/images/mustang-thumb.jpg', 45000, 12000, 'Red', 3),
+('Toyota', 'Corolla', 2024, 'Economical and reliable sedan.', '/images/corolla.jpg', '/images/corolla-thumb.jpg', 25000, 3000, 'White', 1);
 
 -- Add a default account if desired for testing
-INSERT INTO account (first_name, last_name, account_email, account_password) VALUES ('Bruce', 'Wayne', 'bruce@wayne.com', 'IamBatman');
+INSERT INTO account (account_firstname, account_lastname, account_email, account_password) VALUES ('Bruce', 'Wayne', 'bruce@wayne.com', 'IamBatman');
 
 -- Update GM Hummer description
 UPDATE inventory

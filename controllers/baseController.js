@@ -6,6 +6,7 @@ const baseController = {}
 // this builds the home page - gets the nav bar then renders the index view
 baseController.buildHome = async function(req, res){
   const nav = await utilities.getNav()
+  // req.flash("notice", "This is a flash message.")
   // sending the title and nav to the view so it can display them
   res.render("index", {title: "Home", nav})
 }
