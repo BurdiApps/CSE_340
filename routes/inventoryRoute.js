@@ -58,4 +58,10 @@ router.post(
   utilities.handleErrors(invController.updateInventory)
 )
 
+// Route to build delete confirmation view
+router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteView))
+
+// Process inventory delete
+router.post("/delete", utilities.handleErrors(invController.deleteItem))
+
 module.exports = router

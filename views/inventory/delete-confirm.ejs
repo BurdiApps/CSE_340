@@ -1,0 +1,14 @@
+<h1><%= title %></h1>
+<%- messages() %>
+<p><strong>Confirm Deletion</strong> - This action cannot be undone.</p>
+<form action="/inv/delete" method="post" id="deleteForm">
+
+  <label><strong>Make:</strong> <%= inv_make %></label>
+  <label><strong>Model:</strong> <%= inv_model %></label>
+  <label><strong>Year:</strong> <%= inv_year %></label>
+  <label><strong>Price:</strong> $<%= new Intl.NumberFormat('en-US').format(inv_price) %></label>
+
+  <input type="hidden" name="inv_id" value="<%= inv_id %>">
+
+  <button type="submit">Confirm Delete</button>
+</form>
