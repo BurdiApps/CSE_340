@@ -44,4 +44,18 @@ router.post(
 // this is the route that the footer link uses to create a 500 error on purpose
 router.get("/trigger-error", utilities.handleErrors(invController.triggerError))
 
+// Route to get inventory by classification as JSON
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+// Route to build edit inventory view
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView))
+
+// Process inventory update
+router.post(
+  "/update/",
+  invValidate.inventoryRules(),
+  invValidate.checkUpdateData,
+  utilities.handleErrors(invController.updateInventory)
+)
+
 module.exports = router
