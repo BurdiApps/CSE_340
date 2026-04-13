@@ -72,6 +72,9 @@ app.use("/inv", inventoryRoute)
 // Account routes
 app.use("/account", require("./routes/accountRoute"))
 
+// Review routes
+app.use("/review", require("./routes/reviewRoute"))
+
 // File Not Found Route - must be last route in list
 // if no other route matches it sends a 404 error to the error handler
 app.use(async (req, res, next) => {

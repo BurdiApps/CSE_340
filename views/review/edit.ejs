@@ -1,0 +1,17 @@
+<h1><%= title %></h1>
+<%- messages() %>
+<% if (errors) { %>
+  <ul class="notice">
+  <% errors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+  <% }) %>
+  </ul>
+<% } %>
+
+<form action="/review/update" method="post" class="review-form">
+  <label for="review_text"><strong>Edit Your Review</strong></label>
+  <textarea id="review_text" name="review_text" rows="4" required minlength="5"><%= review_text %></textarea>
+  <input type="hidden" name="review_id" value="<%= review_id %>">
+  <input type="hidden" name="inv_id" value="<%= inv_id %>">
+  <button type="submit">Update Review</button>
+</form>

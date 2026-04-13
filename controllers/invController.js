@@ -1,5 +1,6 @@
 // bringing in the model and utilities so we can get data and build html
 const invModel = require("../models/inventory-model")
+const reviewModel = require("../models/review-model")
 const utilities = require("../utilities/")
 
 // empty object to hold all the inventory controller functions
@@ -39,6 +40,8 @@ invCont.buildByInvId = async function (req, res, next) {
   const data = await invModel.getInventoryByInvId(inv_id)
   // building the detail html using the utility function
   const detail = await utilities.buildVehicleDetail(data)
+  // getting reviews for this vehicle
+  const reviews = await reviewModel.getReviewsByInvId(inv_id)
   let nav = await utilities.getNav()
   // making the title show the year make and model of the vehicle
   const vehicleName = data
@@ -49,6 +52,8 @@ invCont.buildByInvId = async function (req, res, next) {
     title: vehicleName,
     nav,
     detail,
+    reviews,
+    inv_id,
   })
 }
 

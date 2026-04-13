@@ -873,3 +873,97 @@ input:required:valid {
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
+
+/* --- Reviews --- */
+.reviews-list {
+  margin: 1rem 0;
+}
+
+.review-item {
+  background: var(--off-white);
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.review-author {
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.review-date {
+  color: var(--mid-gray);
+  font-size: 0.85rem;
+}
+
+.review-text {
+  margin: 0.5rem 0;
+  line-height: 1.5;
+}
+
+.review-actions a {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.review-actions a:hover {
+  text-decoration: underline;
+}
+
+.no-reviews {
+  color: var(--mid-gray);
+  font-style: italic;
+}
+
+.review-form {
+  margin: 1rem 0;
+}
+
+.review-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--light-gray);
+  border-radius: 6px;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  resize: vertical;
+  margin-bottom: 0.75rem;
+}
+
+.review-form button {
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.review-form button:hover {
+  background: var(--primary-dark);
+}
+
+.delete-btn {
+  background: var(--accent2);
+  color: var(--white);
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #a00;
+}
